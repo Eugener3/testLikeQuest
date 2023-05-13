@@ -1,0 +1,81 @@
+﻿<Page x:Class="testLikeQuest.AdminPanel"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:testLikeQuest"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Background="#141414"
+      Title="AdminPanel">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Content="Админ панель" Foreground="White" FontSize="28" Grid.Column="1" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
+
+        <Button Content="Назад" x:Name="BackButton" Visibility="Hidden" Click="BackButton_Click" Grid.Column="2" Height="30" Width="70" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0, 10, 10, 0" Style="{DynamicResource ButtonStyle}"/>
+        <StackPanel x:Name="ButtonsPanel" Grid.Column="1" Visibility="Visible" VerticalAlignment="Center">
+            <Button Content="Создать вопрос" Click="AddQuestionButton_Click" Style="{DynamicResource ButtonStyle}" Width="150" Height="30" Margin="0, 0, 0, 15"/>
+            <Button Content="Категории" Click="CategoryButton_Click" Style="{DynamicResource ButtonStyle}" Width="150" Height="30" Margin="0, 0, 0, 15"/>
+
+        </StackPanel>
+
+        <StackPanel Grid.ColumnSpan="3" Visibility="Hidden" x:Name="addQuestionPanel" VerticalAlignment="Center">
+            <StackPanel Margin="175,105,155,105" Orientation="Horizontal">
+                <StackPanel Margin="15, 0, 15, 0">
+                    <TextBlock Text="Вопрос" Foreground="White" HorizontalAlignment="Center" FontSize="15"/>
+                    <TextBox x:Name="title" Width="200" Margin="0, 0, 0, 10"/>
+
+                    <TextBlock Text="Вариант 1" Foreground="White" HorizontalAlignment="Center" FontSize="15"/>
+                    <TextBox x:Name="var1" Width="200" Margin="0, 0, 0, 10"/>
+
+                    <TextBlock Text="Вариант 2" Foreground="White" HorizontalAlignment="Center" FontSize="15"/>
+                    <TextBox x:Name="var2" Width="200" Margin="0, 0, 0, 10"/>
+
+                    <TextBlock Text="Вариант 3" Foreground="White" HorizontalAlignment="Center" FontSize="15"/>
+                    <TextBox x:Name="var3" Width="200" Margin="0, 0, 0, 10"/>
+
+                    <TextBlock Text="Вариант 4(необязательно)" Foreground="White" HorizontalAlignment="Center" FontSize="15"/>
+                    <TextBox x:Name="var4" Width="200" Margin="0, 0, 0, 10"/>
+                </StackPanel>
+                <StackPanel Margin="15, 0, 15, 0">
+                    <TextBlock Text="Правильный ответ" Foreground="White" HorizontalAlignment="Center" FontSize="15"/>
+                    <TextBox x:Name="answer" Width="200" Margin="0, 0, 0, 10"/>
+
+                    <TextBlock Text="Категория" Foreground="White" HorizontalAlignment="Center" FontSize="15"/>
+                    <ComboBox  Width="200" Margin="0, 0, 0, 10"/>
+
+                    <TextBlock Text="Номер билета" Foreground="White" HorizontalAlignment="Center" FontSize="15"/>
+                    <ComboBox Width="200" Margin="0, 0, 0, 10"/>
+
+                    <TextBlock Text="Картинка(необязательно)" Foreground="White" HorizontalAlignment="Center" FontSize="15"/>
+                    <TextBox  Width="200" Margin="0, 0, 0, 20"/>
+
+                    <Button Content="Создать" Height="25" Style="{DynamicResource ButtonStyle}"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.ColumnSpan="3" Visibility="Hidden" x:Name="CategoryPanel" VerticalAlignment="Center">
+            <StackPanel>
+                <TextBlock Text="Редактор категорий" Foreground="White" FontSize="15" HorizontalAlignment="Center" Margin="0, 0, 0, 10"/>
+                <TextBox Width="200" Margin="0, 0, 0, 10"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Content="Удалить" Click="DeleteCategoryButton_Click" Style="{DynamicResource ButtonStyle}" Width="100" Height="30" Margin="5, 0, 5, 0"/>
+                    <Button Content="Создать" Click="AddCategoryButton_Click" Style="{DynamicResource ButtonStyle}" Width="100" Height="30" Margin="5, 0, 5, 0"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+
+
+        <Button Style="{DynamicResource ButtonStyle}" Click="LogoutButton_Click" Content="Выйти" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="2" Grid.Row="2"  Width="70" Height="40" Margin="0, 0, 10, 10"/>
+
+    </Grid>
+</Page>

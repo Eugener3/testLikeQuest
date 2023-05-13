@@ -16,16 +16,23 @@ using System.Windows.Shapes;
 namespace testLikeQuest
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainFrame.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainFrame : Page
     {
-        static public int? userID;
-        public MainWindow()
+        public MainFrame()
         {
-
             InitializeComponent();
-            MainFrame.Content = new MainFrame();
+        }
+
+        private void SignInButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new SignIn());
+        }
+
+        private void SignUpButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new SignUp());
         }
     }
 }
