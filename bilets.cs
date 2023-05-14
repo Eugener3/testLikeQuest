@@ -20,8 +20,7 @@ namespace testLikeQuest
             this.questions = new HashSet<questions>();
         }
     
-        public int idBilet { get; set; }
-        public int number { get; set; }
+        public int nameBilet { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<questions> questions { get; set; }

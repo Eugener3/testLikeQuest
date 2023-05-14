@@ -24,7 +24,6 @@
         <StackPanel x:Name="ButtonsPanel" Grid.Column="1" Visibility="Visible" VerticalAlignment="Center">
             <Button Content="Создать вопрос" Click="AddQuestionButton_Click" Style="{DynamicResource ButtonStyle}" Width="150" Height="30" Margin="0, 0, 0, 15"/>
             <Button Content="Категории" Click="CategoryButton_Click" Style="{DynamicResource ButtonStyle}" Width="150" Height="30" Margin="0, 0, 0, 15"/>
-
         </StackPanel>
 
         <StackPanel Grid.ColumnSpan="3" Visibility="Hidden" x:Name="addQuestionPanel" VerticalAlignment="Center">
@@ -45,20 +44,22 @@
                     <TextBlock Text="Вариант 4(необязательно)" Foreground="White" HorizontalAlignment="Center" FontSize="15"/>
                     <TextBox x:Name="var4" Width="200" Margin="0, 0, 0, 10"/>
                 </StackPanel>
+                
                 <StackPanel Margin="15, 0, 15, 0">
                     <TextBlock Text="Правильный ответ" Foreground="White" HorizontalAlignment="Center" FontSize="15"/>
-                    <TextBox x:Name="answer" Width="200" Margin="0, 0, 0, 10"/>
+                    <ComboBox x:Name="answer" SelectedItem="" Width="200" Margin="0, 0, 0, 10"/>
 
                     <TextBlock Text="Категория" Foreground="White" HorizontalAlignment="Center" FontSize="15"/>
                     <ComboBox x:Name="SelcategoryBox" SelectedItem="" Width="200" Margin="0, 0, 0, 10"/>
 
                     <TextBlock Text="Номер билета" Foreground="White" HorizontalAlignment="Center" FontSize="15"/>
-                    <ComboBox Width="200" Margin="0, 0, 0, 10"/>
+                    <ComboBox x:Name="biletBox" Width="200" Margin="0, 0, 0, 10"/>
 
-                    <TextBlock Text="Картинка(необязательно)" Foreground="White" HorizontalAlignment="Center" FontSize="15"/>
-                    <TextBox  Width="200" Margin="0, 0, 0, 20"/>
-
-                    <Button Content="Создать" Height="25" Style="{DynamicResource ButtonStyle}"/>
+                    <StackPanel>
+                        <Button Style="{DynamicResource ButtonStyle}" Content="Выбрать картинку"  Click="ChooseFile_Click" />
+                        <Label Content="" Foreground="White" x:Name="chooseImg" Width="200"/>
+                        <Button Content="Добавить вопрос" Click="CreateQuestionButton_Click" Style="{DynamicResource ButtonStyle}"/>
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
         </StackPanel>

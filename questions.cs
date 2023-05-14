@@ -22,8 +22,8 @@ namespace testLikeQuest
         }
     
         public int idQuestion { get; set; }
-        public int idCategory { get; set; }
-        public int idBilet { get; set; }
+        public string nameCategory { get; set; }
+        public int nameBilet { get; set; }
         public string title { get; set; }
         public string var1 { get; set; }
         public string var2 { get; set; }

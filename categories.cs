@@ -20,7 +20,6 @@ namespace testLikeQuest
             this.questions = new HashSet<questions>();
         }
     
-        public int idCategory { get; set; }
         public string nameCategory { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

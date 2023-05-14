@@ -187,19 +187,21 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="dataBase.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>dataBase.Context.cs</LastGenOutput>
       <DependentUpon>dataBase.edmx</DependentUpon>
+      <LastGenOutput>dataBase.Context.cs</LastGenOutput>
     </Content>
     <Content Include="dataBase.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>dataBase.edmx</DependentUpon>
       <LastGenOutput>dataBase.cs</LastGenOutput>
     </Content>
+    <Resource Include="icon.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

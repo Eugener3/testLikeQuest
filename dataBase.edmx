@@ -7,16 +7,14 @@
     <Schema Namespace="tlqModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="bilets">
           <Key>
-            <PropertyRef Name="idBilet" />
+            <PropertyRef Name="nameBilet" />
           </Key>
-          <Property Name="idBilet" Type="int" Nullable="false" />
-          <Property Name="number" Type="int" Nullable="false" />
+          <Property Name="nameBilet" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="categories">
           <Key>
-            <PropertyRef Name="idCategory" />
+            <PropertyRef Name="nameCategory" />
           </Key>
-          <Property Name="idCategory" Type="int" Nullable="false" />
           <Property Name="nameCategory" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="questions">
@@ -24,13 +22,13 @@
             <PropertyRef Name="idQuestion" />
           </Key>
           <Property Name="idQuestion" Type="int" Nullable="false" />
-          <Property Name="idCategory" Type="int" Nullable="false" />
-          <Property Name="idBilet" Type="int" Nullable="false" />
-          <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="var1" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="var2" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="var3" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="var4" Type="varchar" MaxLength="50" />
+          <Property Name="nameCategory" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nameBilet" Type="int" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="var1" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="var2" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="var3" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="var4" Type="varchar" MaxLength="255" />
           <Property Name="answer" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="imgUrl" Type="varchar" MaxLength="255" />
         </EntityType>
@@ -73,10 +71,10 @@
           <End Role="questions" Type="Self.questions" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="bilets">
-              <PropertyRef Name="idBilet" />
+              <PropertyRef Name="nameBilet" />
             </Principal>
             <Dependent Role="questions">
-              <PropertyRef Name="idBilet" />
+              <PropertyRef Name="nameBilet" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -85,10 +83,10 @@
           <End Role="questions" Type="Self.questions" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="categories">
-              <PropertyRef Name="idCategory" />
+              <PropertyRef Name="nameCategory" />
             </Principal>
             <Dependent Role="questions">
-              <PropertyRef Name="idCategory" />
+              <PropertyRef Name="nameCategory" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -179,17 +177,15 @@
       <Schema Namespace="tlqModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="bilets">
           <Key>
-            <PropertyRef Name="idBilet" />
+            <PropertyRef Name="nameBilet" />
           </Key>
-          <Property Name="idBilet" Type="Int32" Nullable="false" />
-          <Property Name="number" Type="Int32" Nullable="false" />
+          <Property Name="nameBilet" Type="Int32" Nullable="false" />
           <NavigationProperty Name="questions" Relationship="Self.FK_questions_bilets" FromRole="bilets" ToRole="questions" />
         </EntityType>
         <EntityType Name="categories">
           <Key>
-            <PropertyRef Name="idCategory" />
+            <PropertyRef Name="nameCategory" />
           </Key>
-          <Property Name="idCategory" Type="Int32" Nullable="false" />
           <Property Name="nameCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="questions" Relationship="Self.FK_questions_categories" FromRole="categories" ToRole="questions" />
         </EntityType>
@@ -198,13 +194,13 @@
             <PropertyRef Name="idQuestion" />
           </Key>
           <Property Name="idQuestion" Type="Int32" Nullable="false" />
-          <Property Name="idCategory" Type="Int32" Nullable="false" />
-          <Property Name="idBilet" Type="Int32" Nullable="false" />
-          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="var1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="var2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="var3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="var4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nameCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nameBilet" Type="Int32" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="var1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="var2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="var3" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="var4" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="answer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="imgUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="bilets" Relationship="Self.FK_questions_bilets" FromRole="questions" ToRole="bilets" />
@@ -257,10 +253,10 @@
           <End Role="questions" Type="Self.questions" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="bilets">
-              <PropertyRef Name="idBilet" />
+              <PropertyRef Name="nameBilet" />
             </Principal>
             <Dependent Role="questions">
-              <PropertyRef Name="idBilet" />
+              <PropertyRef Name="nameBilet" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -269,10 +265,10 @@
           <End Role="questions" Type="Self.questions" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="categories">
-              <PropertyRef Name="idCategory" />
+              <PropertyRef Name="nameCategory" />
             </Principal>
             <Dependent Role="questions">
-              <PropertyRef Name="idCategory" />
+              <PropertyRef Name="nameCategory" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -366,15 +362,13 @@
           <EntitySetMapping Name="bilets">
             <EntityTypeMapping TypeName="tlqModel.bilets">
               <MappingFragment StoreEntitySet="bilets">
-                <ScalarProperty Name="idBilet" ColumnName="idBilet" />
-                <ScalarProperty Name="number" ColumnName="number" />
+                <ScalarProperty Name="nameBilet" ColumnName="nameBilet" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="categories">
             <EntityTypeMapping TypeName="tlqModel.categories">
               <MappingFragment StoreEntitySet="categories">
-                <ScalarProperty Name="idCategory" ColumnName="idCategory" />
                 <ScalarProperty Name="nameCategory" ColumnName="nameCategory" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -383,8 +377,8 @@
             <EntityTypeMapping TypeName="tlqModel.questions">
               <MappingFragment StoreEntitySet="questions">
                 <ScalarProperty Name="idQuestion" ColumnName="idQuestion" />
-                <ScalarProperty Name="idCategory" ColumnName="idCategory" />
-                <ScalarProperty Name="idBilet" ColumnName="idBilet" />
+                <ScalarProperty Name="nameCategory" ColumnName="nameCategory" />
+                <ScalarProperty Name="nameBilet" ColumnName="nameBilet" />
                 <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="var1" ColumnName="var1" />
                 <ScalarProperty Name="var2" ColumnName="var2" />
