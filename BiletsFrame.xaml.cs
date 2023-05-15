@@ -23,12 +23,67 @@ namespace testLikeQuest
         public BiletsFrame()
         {
             InitializeComponent();
+            FillBiletComboBox();
+            FillThemeBox();
+
+        }
+
+
+        private void FillThemeBox()
+        {
+ 
+            tlqEntities db = new tlqEntities();
+
+            using (db)
+            {
+                foreach (categories c in db.categories)
+                {
+
+                    themeBox.Items.Add(c.nameCategory);
+                }
+            }
+        }
+
+        private void FillBiletComboBox()
+        {
+
+            tlqEntities db = new tlqEntities();
+
+            using (db)
+            {
+                int[] biletsBox = new int[20];
+                foreach (bilets c in db.bilets)
+                {
+                    int i = 0;
+
+
+                    biletsBox[i] = c.nameBilet;
+                    i++;
+                    Array.Sort(biletsBox);
+
+                }
+                for (int i = 0; i < biletsBox.Length; i++)
+                {
+                    biletBox.Items.Add(biletsBox[i]);
+                }
+
+            }
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.userID = null;
             NavigationService.Navigate(new MainFrame());
+        }
+
+        private void themeBox_Selected(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void biletBox_Selected(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

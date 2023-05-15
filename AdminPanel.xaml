@@ -21,9 +21,13 @@
         <Label Content="Админ панель" Foreground="White" FontSize="28" Grid.Column="1" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
 
         <Button Content="Назад" x:Name="BackButton" Visibility="Hidden" Click="BackButton_Click" Grid.Column="2" Height="30" Width="70" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0, 10, 10, 0" Style="{DynamicResource ButtonStyle}"/>
+        
         <StackPanel x:Name="ButtonsPanel" Grid.Column="1" Visibility="Visible" VerticalAlignment="Center">
             <Button Content="Создать вопрос" Click="AddQuestionButton_Click" Style="{DynamicResource ButtonStyle}" Width="150" Height="30" Margin="0, 0, 0, 15"/>
+            <Button Content="Удалить вопрос" Click="DeleteQuestionButton_Click" Style="{DynamicResource ButtonStyle}" Width="150" Height="30" Margin="0, 0, 0, 15"/>
+
             <Button Content="Категории" Click="CategoryButton_Click" Style="{DynamicResource ButtonStyle}" Width="150" Height="30" Margin="0, 0, 0, 15"/>
+            
         </StackPanel>
 
         <StackPanel Grid.ColumnSpan="3" Visibility="Hidden" x:Name="addQuestionPanel" VerticalAlignment="Center">
@@ -62,6 +66,17 @@
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.ColumnSpan="3" Visibility="Hidden" x:Name="DeleteQuestionPanel" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical">
+            <StackPanel>
+                <Label Content="Выберите id вопроса" Foreground="White" FontSize="15" HorizontalAlignment="Center" Margin="0, 0, 0, 15"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <ComboBox Width="50" x:Name="idQuestionCombo" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Margin="0, 0, 15, 0"/>
+                <Button Content="Удалить" Click="DeleteButton_Click" Style="{DynamicResource ButtonStyle}" Width="100" Height="30" Margin="15, 0, 0, 0"/>
+            </StackPanel>
+
         </StackPanel>
 
         <StackPanel Grid.ColumnSpan="3" Visibility="Hidden" x:Name="CategoryPanel" VerticalAlignment="Center">

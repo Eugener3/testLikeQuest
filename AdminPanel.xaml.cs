@@ -32,7 +32,7 @@ namespace testLikeQuest
             FillComboBox();
             FillSelComboBox();
             FillBiletComboBox();
-
+            FillQuestionIdComboBox();
 
             answer.Items.Add("var1");
             answer.Items.Add("var2");
@@ -43,6 +43,7 @@ namespace testLikeQuest
 
         private void AddQuestionButton_Click(object sender, RoutedEventArgs e)
         {
+            FillSelComboBox();
             ButtonsPanel.Visibility = Visibility.Hidden;
             addQuestionPanel.Visibility = Visibility.Visible;
             BackButton.Visibility = Visibility.Visible;
@@ -69,11 +70,11 @@ namespace testLikeQuest
                     question.answer = answer.Text;
                     question.nameCategory = SelcategoryBox.Text;
                     question.nameBilet = int.Parse(biletBox.Text);
-                    if (var4.Text != "")
+                    if (var4.Text != null)
                     {
                         question.var4 = var4.Text;
                     }
-                    if (selectedFilePath != "")
+                    if (selectedFilePath != null)
                     {
 
                         var fileName = System.IO.Path.GetFileName(selectedFilePath);
@@ -105,12 +106,28 @@ namespace testLikeQuest
 
         }
 
-        private void UploadFile_Click(object sender, RoutedEventArgs e)
+        private void DeleteQuestionButton_Click(object sender, RoutedEventArgs e)
         {
-
+            ButtonsPanel.Visibility = Visibility.Hidden;
+            DeleteQuestionPanel.Visibility = Visibility.Visible;
+            BackButton.Visibility = Visibility.Visible;
+            FillQuestionIdComboBox();
         }
 
-            private void FillComboBox()
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            int selectedQuestionId = (int)idQuestionCombo.SelectedItem;
+            tlqEntities db = new tlqEntities();
+            questions questionToDelete = db.questions.Find(selectedQuestionId);
+
+            db.questions.Remove(questionToDelete);
+            db.SaveChanges();
+
+            MessageBox.Show("Вы успешно удалили " + selectedQuestionId + "-й вопрос");
+            FillQuestionIdComboBox();
+        }
+
+        private void FillComboBox()
         {
             categoryBox.Items.Clear();
 
@@ -168,6 +185,22 @@ namespace testLikeQuest
             }
         }
 
+        private void FillQuestionIdComboBox()
+        {
+            idQuestionCombo.Items.Clear();
+
+            tlqEntities db = new tlqEntities();
+
+            using (db)
+            {
+                foreach (questions c in db.questions)
+                {
+
+                    idQuestionCombo.Items.Add(c.idQuestion);
+                }
+            }
+        }
+
         private void CategoryButton_Click(object sender, RoutedEventArgs e)
         {
             ButtonsPanel.Visibility = Visibility.Hidden;
@@ -198,18 +231,17 @@ namespace testLikeQuest
         }
         private void DeleteCategoryButton_Click(object sender, RoutedEventArgs e)
         {
+            string selectedCategoryName = categoryBox.SelectedItem.ToString();
             tlqEntities db = new tlqEntities();
+            categories categoryToDelete = db.categories.Find(selectedCategoryName);
 
-            using (db)
-            {
-                // Разобраться с синтактисом удаления категории
+            db.categories.Remove(categoryToDelete);
+            db.SaveChanges();
 
-                MessageBox.Show("Категория успешно удалена");
-                categoryBox.Text = null;
-                FillComboBox();
-            }
 
-                
+            MessageBox.Show("Категория успешно удалена");
+            categoryBox.Text = null;
+            FillComboBox();   
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
@@ -222,9 +254,9 @@ namespace testLikeQuest
         {
             ButtonsPanel.Visibility = Visibility.Visible;
             addQuestionPanel.Visibility = Visibility.Hidden;
+            DeleteQuestionPanel.Visibility = Visibility.Hidden;
             CategoryPanel.Visibility = Visibility.Hidden;
             BackButton.Visibility = Visibility.Hidden;
         }
-
     }
 }
