@@ -17,11 +17,10 @@ using System.Security;
 
 namespace testLikeQuest
 {
-    /// <summary>
-    /// Interaction logic for SignUp.xaml
-    /// </summary>
+
     public partial class SignUp : Page
     {
+
         
         public SignUp()
         {

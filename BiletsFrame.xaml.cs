@@ -23,6 +23,7 @@ namespace testLikeQuest
         private string filename;
         private List<CustomObject> questionsList;
         private int key = 0;
+        private int idQuestion;
 
         public class CustomObject 
         {
@@ -93,21 +94,21 @@ namespace testLikeQuest
             if (questionsList.Count > 0 && key < questionsList.Count)
             {
                 CustomObject obj = questionsList[key];
+                idQuestion = obj.IdQuestion;
                 title.Content = obj.Title;
                 var1.Content = obj.Var1;
                 var2.Content = obj.Var2;
                 var3.Content = obj.Var3;
-                if (obj.Var4 != "")
+                if (obj.Var4.Length > 5)
                 {
                     var4.Content = obj.Var4;
                 }
-                if (obj.ImgUrl != "NULL")
+                if (obj.ImgUrl.Length > 5)
                 {
 
                     string sourcePath = AppDomain.CurrentDomain.BaseDirectory;
                     filename = obj.ImgUrl;
                     string final = sourcePath + filename;
-                    
 
                     BitmapImage imageSource = new BitmapImage();
                     imageSource.BeginInit();
@@ -121,7 +122,33 @@ namespace testLikeQuest
             }
             else
             {
-                MessageBox.Show("No more questions available.");
+                key = 1;
+                CustomObject obj = questionsList[key];
+                idQuestion = obj.IdQuestion;
+                title.Content = obj.Title;
+                var1.Content = obj.Var1;
+                var2.Content = obj.Var2;
+                var3.Content = obj.Var3;
+                if (obj.Var4.Length > 5)
+                {
+                    var4.Content = obj.Var4;
+                }
+                if (obj.ImgUrl.Length > 5)
+                {
+
+                    string sourcePath = AppDomain.CurrentDomain.BaseDirectory;
+                    filename = obj.ImgUrl;
+                    string final = sourcePath + filename;
+
+                    BitmapImage imageSource = new BitmapImage();
+                    imageSource.BeginInit();
+                    imageSource.UriSource = new Uri(final, UriKind.RelativeOrAbsolute);
+                    imageSource.EndInit();
+
+                    img.Source = imageSource;
+                }
+                answer = obj.Answer;
+                key++;
             }
         }
 
@@ -149,16 +176,16 @@ namespace testLikeQuest
                     }
                     else
                     {
-                        quest.Var4 = null;
+                        quest.Var4 = "lal";
                     }
                     quest.Answer = question.answer;
-                    if (question.var4 != null)
+                    if (question.imgUrl != null)
                     {
-                        quest.ImgUrl = question.var4;
+                        quest.ImgUrl = question.imgUrl;
                     }
                     else
                     {
-                        quest.ImgUrl = null;
+                        quest.ImgUrl = "lul";
                     }
                     questionsList.Add(quest);
                 }
@@ -238,9 +265,173 @@ namespace testLikeQuest
         private void AnsButton_Click(object sender, RoutedEventArgs e)
         {
 
+            tlqEntities db = new tlqEntities();
 
+            var wrongAnswers = db.wrongAnswers;
+            var rightAnswers = db.rightAnswers;
+
+            
+            using (db)
+            {
+
+                if (chooseVar == answer)
+                {
+                    rightAnswers rightAnswer = new rightAnswers();
+
+                    int maxIdRightAnswer;
+
+                    try
+                    {
+                        maxIdRightAnswer = (from rb in db.rightAnswers select rb.idRightAnswer).Max();
+                    }
+                    catch (Exception)
+                    {
+                        maxIdRightAnswer = 1;
+                    }
+
+
+                    rightAnswer.idRightAnswer = maxIdRightAnswer;
+                    rightAnswer.idUser = Convert.ToInt32(MainWindow.userID);
+                    rightAnswer.idQuestion = Convert.ToInt32(idQuestion);
+
+                    db.rightAnswers.Add(rightAnswer);
+                    db.SaveChanges();
+
+                    MessageBox.Show("Вы ответили правильно");
+                }
+                else
+                {
+                    wrongAnswers wrongAnswer = new wrongAnswers();
+
+                    int maxIdWrongAnswer;
+
+                    try
+                    {
+                        maxIdWrongAnswer = (from wb in db.wrongAnswers select wb.idWrongAnswer).Max();
+                    }
+                    catch (Exception)
+                    {
+                        maxIdWrongAnswer = 1;
+                    }
+
+
+                    wrongAnswer.idWrongAnswer = maxIdWrongAnswer;
+                    wrongAnswer.idUser = Convert.ToInt32(MainWindow.userID);
+                    wrongAnswer.idQuestion = Convert.ToInt32(idQuestion);
+
+                    db.wrongAnswers.Add(wrongAnswer);
+                    db.SaveChanges();
+
+                    MessageBox.Show("Вы ответили не правильно");
+                }
+            }
+
+            img.Source = null;
             DisplayNextQuestion();
             chooseVar = "";
+            filename = "";
+        }
+
+        private void WrongButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (questionsList.Count > 0 && key < questionsList.Count)
+            {
+                CustomObject obj = questionsList[key];
+                idQuestion = obj.IdQuestion;
+                title.Content = obj.Title;
+                var1.Content = obj.Var1;
+                var2.Content = obj.Var2;
+                var3.Content = obj.Var3;
+                if (obj.Var4.Length > 5)
+                {
+                    var4.Content = obj.Var4;
+                }
+                if (obj.ImgUrl.Length > 5)
+                {
+
+                    string sourcePath = AppDomain.CurrentDomain.BaseDirectory;
+                    filename = obj.ImgUrl;
+                    string final = sourcePath + filename;
+
+                    BitmapImage imageSource = new BitmapImage();
+                    imageSource.BeginInit();
+                    imageSource.UriSource = new Uri(final, UriKind.RelativeOrAbsolute);
+                    imageSource.EndInit();
+
+                    img.Source = imageSource;
+                }
+                answer = obj.Answer;
+                key++;
+            }
+            else
+            {
+                key = 1;
+                CustomObject obj = questionsList[key];
+                idQuestion = obj.IdQuestion;
+                title.Content = obj.Title;
+                var1.Content = obj.Var1;
+                var2.Content = obj.Var2;
+                var3.Content = obj.Var3;
+                if (obj.Var4.Length > 5)
+                {
+                    var4.Content = obj.Var4;
+                }
+                if (obj.ImgUrl.Length > 5)
+                {
+
+                    string sourcePath = AppDomain.CurrentDomain.BaseDirectory;
+                    filename = obj.ImgUrl;
+                    string final = sourcePath + filename;
+
+                    BitmapImage imageSource = new BitmapImage();
+                    imageSource.BeginInit();
+                    imageSource.UriSource = new Uri(final, UriKind.RelativeOrAbsolute);
+                    imageSource.EndInit();
+
+                    img.Source = imageSource;
+                }
+                answer = obj.Answer;
+                key++;
+            }
+        }
+
+        private void FillWrongQuestions()
+        {
+
+            tlqEntities db = new tlqEntities();
+
+            using (db)
+            {
+
+                foreach (questions question in db.questions)
+                {
+                    CustomObject quest = new CustomObject();
+                    quest.IdQuestion = question.idQuestion;
+                    quest.Title = question.title;
+                    quest.Var1 = question.var1;
+                    quest.Var2 = question.var2;
+                    quest.Var3 = question.var3;
+                    if (question.var4 != null)
+                    {
+                        quest.Var4 = question.var4;
+                    }
+                    else
+                    {
+                        quest.Var4 = "lal";
+                    }
+                    quest.Answer = question.answer;
+                    if (question.imgUrl != null)
+                    {
+                        quest.ImgUrl = question.imgUrl;
+                    }
+                    else
+                    {
+                        quest.ImgUrl = "lul";
+                    }
+                    questionsList.Add(quest);
+                }
+            }
+
         }
     }
 }

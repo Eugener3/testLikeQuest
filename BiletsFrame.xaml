@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>
         <Button Style="{DynamicResource ButtonStyle}" Click="LogoutButton_Click" Content="Выйти" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="2" Grid.Row="2"  Width="70" Height="40" Margin="0, 0, 10, 10"/>
         <StackPanel Grid.Row="0" Grid.Column="2" Margin="0,0,9.667,123" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.RowSpan="2">
-            <Button Style="{DynamicResource WrongButtonStyle}" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="20, 5, 20, 5" Content="Ошибки"/>
+            <Button Style="{DynamicResource WrongButtonStyle}" VerticalAlignment="Center" Click="WrongButton_Click" HorizontalAlignment="Right" Padding="20, 5, 20, 5" Content="Ошибки"/>
             <ComboBox Padding="20, 5, 20, 5" Margin="0, 10" x:Name="themeBox" >
                 <ComboBoxItem x:Name="firstTheme" IsSelected="True">Тема</ComboBoxItem>
             </ComboBox>
@@ -33,7 +33,10 @@
 
         <StackPanel Grid.ColumnSpan="3" Width="750" Margin="26,0,24.667,0" Grid.RowSpan="2" Grid.Row="1">
 
-            <Label Content="Вопрос" Name="title" Foreground="White" HorizontalAlignment="Center" FontSize="14"/>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <Label Content="Вопрос" Name="title" Foreground="White"  FontSize="14"/>
+            </StackPanel>
+
 
             <StackPanel Margin="0, 20, 0, 0">
                 <Button Content="Вариант 1" Click="var1_Click" x:Name="var1" Foreground="White" HorizontalAlignment="Center" Style="{DynamicResource VarButtonStyle}" FontSize="12" Padding="5, 5, 5, 5" Margin="0, 0, 0, 10"/>
