@@ -15,20 +15,63 @@ using System.Windows.Shapes;
 
 namespace testLikeQuest
 {
-    /// <summary>
-    /// Interaction logic for BiletsFrame.xaml
-    /// </summary>
     public partial class BiletsFrame : Page
     {
+
+        private string chooseVar;
+        private string answer;
+        private string filename;
+        private List<CustomObject> questionsList;
+        private int key = 0;
+
+        public class CustomObject 
+        {
+            private static int keyCounter = 0;
+
+            public int Key { get; }
+            public int IdQuestion { get; set; }
+            public string Title { get; set; }
+            public string Var1 { get; set; }
+            public string Var2 { get; set; }
+            public string Var3 { get; set; }
+            public string Var4 { get; set; }
+            public string Answer { get; set; }
+            public string ImgUrl { get; set; }
+
+            public CustomObject()
+            {
+                Key = ++keyCounter;
+            }
+
+            public static CustomObject GetObjectByKey(int key)
+            {
+                // Здесь вам нужно обращаться к вашей базе данных или коллекции объектов,
+                // чтобы найти объект с указанным ключом и вернуть его
+                // В этом примере я просто создаю новый объект для иллюстрации
+
+                CustomObject obj = new CustomObject();
+                obj.IdQuestion = key;
+                obj.Title = "Object with Key " + key;
+                obj.Var1 = "Var1";
+                obj.Var2 = "Var2";
+                obj.Var3 = "Var3";
+                obj.Var4 = "Var4";
+                obj.Answer = "Answer";
+                obj.ImgUrl = "ImgUrl";
+
+                return obj;
+            }
+        }
+
         public BiletsFrame()
         {
             InitializeComponent();
+            questionsList = new List<CustomObject>();
+            FillQuestions();
             FillBiletComboBox();
             FillThemeBox();
-
+            DisplayNextQuestion();
         }
-
-
         private void FillThemeBox()
         {
  
@@ -42,6 +85,92 @@ namespace testLikeQuest
                     themeBox.Items.Add(c.nameCategory);
                 }
             }
+        }
+
+
+        private void DisplayNextQuestion()
+        {
+            if (questionsList.Count > 0 && key < questionsList.Count)
+            {
+                CustomObject obj = questionsList[key];
+                title.Content = obj.Title;
+                var1.Content = obj.Var1;
+                var2.Content = obj.Var2;
+                var3.Content = obj.Var3;
+                if (obj.Var4 != "")
+                {
+                    var4.Content = obj.Var4;
+                }
+                if (obj.ImgUrl != "NULL")
+                {
+
+                    string sourcePath = AppDomain.CurrentDomain.BaseDirectory;
+                    filename = obj.ImgUrl;
+                    string final = sourcePath + filename;
+                    
+
+                    BitmapImage imageSource = new BitmapImage();
+                    imageSource.BeginInit();
+                    imageSource.UriSource = new Uri(final, UriKind.RelativeOrAbsolute);
+                    imageSource.EndInit();
+
+                    img.Source = imageSource;
+                }
+                answer = obj.Answer;
+                key++;
+            }
+            else
+            {
+                MessageBox.Show("No more questions available.");
+            }
+        }
+
+        private void FillQuestions() 
+        {
+
+
+
+            tlqEntities db = new tlqEntities();
+
+            using (db)
+            {
+                
+                foreach (questions question in db.questions)
+                {
+                    CustomObject quest = new CustomObject();
+                    quest.IdQuestion = question.idQuestion;
+                    quest.Title = question.title;
+                    quest.Var1 = question.var1;
+                    quest.Var2 = question.var2;
+                    quest.Var3 = question.var3;
+                    if (question.var4 != null)
+                    {
+                        quest.Var4 = question.var4;
+                    }
+                    else
+                    {
+                        quest.Var4 = null;
+                    }
+                    quest.Answer = question.answer;
+                    if (question.var4 != null)
+                    {
+                        quest.ImgUrl = question.var4;
+                    }
+                    else
+                    {
+                        quest.ImgUrl = null;
+                    }
+                    questionsList.Add(quest);
+                }
+
+               
+
+
+
+                
+
+            }
+
         }
 
         private void FillBiletComboBox()
@@ -84,6 +213,34 @@ namespace testLikeQuest
         private void biletBox_Selected(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void var1_Click(object sender, RoutedEventArgs e)
+        {
+            chooseVar = "var1";
+        }
+
+        private void var2_Click(object sender, RoutedEventArgs e)
+        {
+            chooseVar = "var2";
+        }
+
+        private void var3_Click(object sender, RoutedEventArgs e)
+        {
+            chooseVar = "var3";
+        }
+
+        private void var4_Click(object sender, RoutedEventArgs e)
+        {
+            chooseVar = "var4";
+        }
+
+        private void AnsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+
+            DisplayNextQuestion();
+            chooseVar = "";
         }
     }
 }
